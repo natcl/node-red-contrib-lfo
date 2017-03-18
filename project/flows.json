@@ -1,0 +1,604 @@
+[
+    {
+        "id": "12631d15.57be5b",
+        "type": "tab",
+        "label": "Flow 1"
+    },
+    {
+        "id": "a2b1604c.67253",
+        "type": "ui_group",
+        "z": "",
+        "name": "LFO",
+        "tab": "f31841f.df37bc",
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "f31841f.df37bc",
+        "type": "ui_tab",
+        "z": "",
+        "name": "Home",
+        "icon": "dashboard"
+    },
+    {
+        "id": "2556e8d5.267688",
+        "type": "ui_base",
+        "theme": {
+            "name": "theme-light",
+            "lightTheme": {
+                "default": "#0094CE",
+                "baseColor": "#0094CE",
+                "baseFont": "Helvetica Neue",
+                "edited": true,
+                "reset": false
+            },
+            "darkTheme": {
+                "default": "#097479",
+                "baseColor": "#097479",
+                "baseFont": "Helvetica Neue",
+                "edited": true,
+                "reset": false
+            },
+            "customTheme": {
+                "name": "Untitled Theme 1",
+                "default": "#4B7930",
+                "baseColor": "#4B7930",
+                "baseFont": "Helvetica Neue"
+            },
+            "themeState": {
+                "base-color": {
+                    "default": "#0094CE",
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-titlebar-backgroundColor": {
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-backgroundColor": {
+                    "value": "#fafafa",
+                    "edited": false
+                },
+                "page-sidebar-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-textColor": {
+                    "value": "#000000",
+                    "edited": false
+                },
+                "group-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "widget-textColor": {
+                    "value": "#111111",
+                    "edited": false
+                },
+                "widget-backgroundColor": {
+                    "value": "#0094ce",
+                    "edited": false
+                },
+                "widget-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                }
+            }
+        },
+        "site": {
+            "name": "Node-RED Dashboard",
+            "hideToolbar": "false",
+            "allowSwipe": "false",
+            "dateFormat": "DD/MM/YYYY",
+            "sizes": {
+                "sx": 48,
+                "sy": 48,
+                "gx": 6,
+                "gy": 6,
+                "cx": 6,
+                "cy": 6,
+                "px": 0,
+                "py": 0
+            }
+        }
+    },
+    {
+        "id": "1756b157.6a1c7f",
+        "type": "inject",
+        "z": "12631d15.57be5b",
+        "name": "",
+        "topic": "",
+        "payload": "start",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 370,
+        "y": 260,
+        "wires": [
+            [
+                "7a7e6c2d.81908c"
+            ]
+        ]
+    },
+    {
+        "id": "1c03621a.9af25e",
+        "type": "inject",
+        "z": "12631d15.57be5b",
+        "name": "",
+        "topic": "",
+        "payload": "stop",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 369,
+        "y": 303,
+        "wires": [
+            [
+                "7a7e6c2d.81908c"
+            ]
+        ]
+    },
+    {
+        "id": "255fbfbe.68519",
+        "type": "ui_chart",
+        "z": "12631d15.57be5b",
+        "name": "",
+        "group": "a2b1604c.67253",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "label": "LFO",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "ymin": "-1.",
+        "ymax": "1.",
+        "removeOlder": "1",
+        "removeOlderPoints": "",
+        "removeOlderUnit": "1",
+        "cutout": 0,
+        "colors": [
+            "#1F77B4",
+            "#AEC7E8",
+            "#FF7F0E",
+            "#2CA02C",
+            "#98DF8A",
+            "#D62728",
+            "#FF9896",
+            "#9467BD",
+            "#C5B0D5"
+        ],
+        "x": 689,
+        "y": 283,
+        "wires": [
+            [],
+            []
+        ]
+    },
+    {
+        "id": "7a7e6c2d.81908c",
+        "type": "lfo-node",
+        "z": "12631d15.57be5b",
+        "name": "",
+        "waveform": "sine",
+        "frequency": "2",
+        "samplingrate": 20,
+        "x": 529,
+        "y": 283,
+        "wires": [
+            [
+                "255fbfbe.68519"
+            ]
+        ]
+    },
+    {
+        "id": "4f2bf612.cc4e",
+        "type": "inject",
+        "z": "12631d15.57be5b",
+        "name": "",
+        "topic": "",
+        "payload": "1",
+        "payloadType": "num",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 369,
+        "y": 163,
+        "wires": [
+            [
+                "7a7e6c2d.81908c"
+            ]
+        ]
+    },
+    {
+        "id": "8f089ecf.d4ac08",
+        "type": "inject",
+        "z": "12631d15.57be5b",
+        "name": "",
+        "topic": "",
+        "payload": "2",
+        "payloadType": "num",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 369,
+        "y": 203,
+        "wires": [
+            [
+                "7a7e6c2d.81908c"
+            ]
+        ]
+    },
+    {
+        "id": "61391db7.81d954",
+        "type": "lfo-node",
+        "z": "12631d15.57be5b",
+        "name": "",
+        "waveform": "triangle",
+        "frequency": "1",
+        "samplingrate": "20",
+        "x": 529,
+        "y": 523,
+        "wires": [
+            [
+                "41f869b7.06fc68"
+            ]
+        ]
+    },
+    {
+        "id": "56db2a7d.8e4544",
+        "type": "inject",
+        "z": "12631d15.57be5b",
+        "name": "",
+        "topic": "",
+        "payload": "start",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 369,
+        "y": 643,
+        "wires": [
+            [
+                "61391db7.81d954"
+            ]
+        ]
+    },
+    {
+        "id": "92fe4887.b8ecc8",
+        "type": "inject",
+        "z": "12631d15.57be5b",
+        "name": "",
+        "topic": "",
+        "payload": "stop",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 368,
+        "y": 686,
+        "wires": [
+            [
+                "61391db7.81d954"
+            ]
+        ]
+    },
+    {
+        "id": "41f869b7.06fc68",
+        "type": "ui_chart",
+        "z": "12631d15.57be5b",
+        "name": "",
+        "group": "a2b1604c.67253",
+        "order": 8,
+        "width": 0,
+        "height": 0,
+        "label": "LFO",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "ymin": "-1.",
+        "ymax": "1.",
+        "removeOlder": "1",
+        "removeOlderPoints": "",
+        "removeOlderUnit": "1",
+        "cutout": 0,
+        "colors": [
+            "#1F77B4",
+            "#AEC7E8",
+            "#FF7F0E",
+            "#2CA02C",
+            "#98DF8A",
+            "#D62728",
+            "#FF9896",
+            "#9467BD",
+            "#C5B0D5"
+        ],
+        "x": 689,
+        "y": 523,
+        "wires": [
+            [],
+            []
+        ]
+    },
+    {
+        "id": "a9d14f8c.472818",
+        "type": "inject",
+        "z": "12631d15.57be5b",
+        "name": "",
+        "topic": "",
+        "payload": "3",
+        "payloadType": "num",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 369,
+        "y": 523,
+        "wires": [
+            [
+                "61391db7.81d954"
+            ]
+        ]
+    },
+    {
+        "id": "cf8c3441.42667",
+        "type": "inject",
+        "z": "12631d15.57be5b",
+        "name": "",
+        "topic": "",
+        "payload": "4",
+        "payloadType": "num",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 369,
+        "y": 563,
+        "wires": [
+            [
+                "61391db7.81d954"
+            ]
+        ]
+    },
+    {
+        "id": "797c09d9.6f6ba8",
+        "type": "inject",
+        "z": "12631d15.57be5b",
+        "name": "",
+        "topic": "",
+        "payload": "1.5",
+        "payloadType": "num",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 369,
+        "y": 483,
+        "wires": [
+            [
+                "61391db7.81d954"
+            ]
+        ]
+    },
+    {
+        "id": "a4d602ae.8621",
+        "type": "ui_slider",
+        "z": "12631d15.57be5b",
+        "name": "",
+        "label": "Freq",
+        "group": "a2b1604c.67253",
+        "order": 1,
+        "width": "4",
+        "height": "1",
+        "passthru": true,
+        "topic": "",
+        "min": 0,
+        "max": 10,
+        "step": "0.1",
+        "x": 349,
+        "y": 103,
+        "wires": [
+            [
+                "7a7e6c2d.81908c",
+                "de739b25.c13128"
+            ]
+        ]
+    },
+    {
+        "id": "de739b25.c13128",
+        "type": "ui_text",
+        "z": "12631d15.57be5b",
+        "group": "a2b1604c.67253",
+        "order": 3,
+        "width": "2",
+        "height": "1",
+        "name": "",
+        "label": "",
+        "format": "{{msg.payload}} Hz",
+        "layout": "row-spread",
+        "x": 549,
+        "y": 103,
+        "wires": []
+    },
+    {
+        "id": "fa3f343d.f75bb",
+        "type": "ui_slider",
+        "z": "12631d15.57be5b",
+        "name": "",
+        "label": "Freq",
+        "group": "a2b1604c.67253",
+        "order": 5,
+        "width": "4",
+        "height": "1",
+        "passthru": true,
+        "topic": "",
+        "min": 0,
+        "max": 10,
+        "step": "0.1",
+        "x": 349,
+        "y": 423,
+        "wires": [
+            [
+                "9f83ab92.6b0508",
+                "61391db7.81d954"
+            ]
+        ]
+    },
+    {
+        "id": "9f83ab92.6b0508",
+        "type": "ui_text",
+        "z": "12631d15.57be5b",
+        "group": "a2b1604c.67253",
+        "order": 7,
+        "width": "2",
+        "height": "1",
+        "name": "",
+        "label": "",
+        "format": "{{msg.payload}} Hz",
+        "layout": "row-spread",
+        "x": 549,
+        "y": 423,
+        "wires": []
+    },
+    {
+        "id": "5b7d97ad.d53c68",
+        "type": "inject",
+        "z": "12631d15.57be5b",
+        "name": "",
+        "topic": "",
+        "payload": "2",
+        "payloadType": "num",
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "x": 149,
+        "y": 103,
+        "wires": [
+            [
+                "a4d602ae.8621"
+            ]
+        ]
+    },
+    {
+        "id": "312cb3ff.ab8ca4",
+        "type": "inject",
+        "z": "12631d15.57be5b",
+        "name": "",
+        "topic": "",
+        "payload": "1",
+        "payloadType": "num",
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "x": 149,
+        "y": 423,
+        "wires": [
+            [
+                "fa3f343d.f75bb"
+            ]
+        ]
+    },
+    {
+        "id": "bdf70965.32a948",
+        "type": "ui_switch",
+        "z": "12631d15.57be5b",
+        "name": "",
+        "label": "start/stop",
+        "group": "a2b1604c.67253",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "topic": "",
+        "style": "",
+        "onvalue": "start",
+        "onvalueType": "str",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "stop",
+        "offvalueType": "str",
+        "officon": "",
+        "offcolor": "",
+        "x": 360,
+        "y": 340,
+        "wires": [
+            [
+                "7a7e6c2d.81908c"
+            ]
+        ]
+    },
+    {
+        "id": "7d19cec.24672b",
+        "type": "ui_switch",
+        "z": "12631d15.57be5b",
+        "name": "",
+        "label": "start/stop",
+        "group": "a2b1604c.67253",
+        "order": 6,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "topic": "",
+        "style": "",
+        "onvalue": "start",
+        "onvalueType": "str",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "stop",
+        "offvalueType": "str",
+        "officon": "",
+        "offcolor": "",
+        "x": 360,
+        "y": 720,
+        "wires": [
+            [
+                "61391db7.81d954"
+            ]
+        ]
+    },
+    {
+        "id": "9da1a01c.8d6d48",
+        "type": "inject",
+        "z": "12631d15.57be5b",
+        "name": "",
+        "topic": "",
+        "payload": "stop",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "x": 150,
+        "y": 340,
+        "wires": [
+            [
+                "bdf70965.32a948"
+            ]
+        ]
+    },
+    {
+        "id": "6d89664d.38809",
+        "type": "inject",
+        "z": "12631d15.57be5b",
+        "name": "",
+        "topic": "",
+        "payload": "stop",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "x": 150,
+        "y": 720,
+        "wires": [
+            [
+                "7d19cec.24672b"
+            ]
+        ]
+    }
+]

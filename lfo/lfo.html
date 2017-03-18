@@ -1,0 +1,60 @@
+<script type="text/javascript">
+    RED.nodes.registerType('lfo-node',{
+        category: 'signals',
+        color: '#c0deed',
+        defaults: {
+            name: {value:""},
+            waveform: {value: "sine"},
+            frequency: {value: 1, validate:RED.validators.number()},
+            samplingrate: {value: 20, validate:RED.validators.number()}
+        },
+        inputs:1,
+        outputs:1,
+        icon: "serial.png",
+        label: function() {
+            return this.name||"lfo";
+        },
+        paletteLabel: "lfo",
+        oneditprepare: function () {
+            $( "#node-input-frequency" ).spinner({min:0});
+            $( "#node-input-samplingrate" ).spinner({min:1});
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="lfo-node">
+    <div class="form-row">
+        <label for="node-input-waveform" style="width: 120px;"><i class="fa fa-music"></i> Waveform</label>
+        <select id="node-input-waveform" style="width:125px !important">
+            <option value="sine">Sine</option>
+            <option value="saw">Saw</option>
+            <option value="saw_i">Inverted Saw</option>
+            <option value="triangle">Triangle</option>
+            <option value="square">Square</option>
+            <option value="sig">Sigmoid</option>
+        </select>
+    </div>
+    <div class="form-row">
+        <label for="node-input-frequency" style="width: 120px;"><i class="fa fa-clock-o"></i> Frequency</label>
+        <input type="text" id="node-input-frequency" placeholder="Hz" style="text-align:end; width:50px !important">
+        <span>Hertz</span>
+    </div>
+    <div class="form-row">
+        <label for="node-input-samplingrate" style="width: 120px;"><i class="fa fa-clock-o"></i> Sampling rate</label>
+        <input type="text" id="node-input-samplingrate" placeholder="ms" style="text-align:end; width:50px !important">
+        <span>Milisecond(s)</span>
+    </div>
+
+    <div class="form-row">
+        <label for="node-input-name" style="width: 120px;"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="lfo-node">
+    <p>Will output numbers between -1 and 1 at the given frequency according to the selected waveform.</p>
+    <p>Sending a number as <code>msg.payload</code> will change the frequency of the LFO. Sending the string
+    <code>'stop'</code> as <code>msg.payload</code> will stop the output.  Sending anything else will start the
+    waveform.</p>
+    <p>Beware of setting the sampling rate too low as it may hog your CPU.</p>
+</script>

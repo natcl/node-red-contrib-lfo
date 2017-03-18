@@ -55,6 +55,15 @@
     <p>Will output numbers between -1 and 1 at the given frequency according to the selected waveform.</p>
     <p>Sending a number as <code>msg.payload</code> will change the frequency of the LFO. Sending the string
     <code>'stop'</code> as <code>msg.payload</code> will stop the output.  Sending anything else will start the
-    waveform.</p>
+    waveform. The waveform can also be changed dynamically by changing <code>msg.waveform</code> valid choices are:
+    <ul>
+        <li>sine</li>
+        <li>saw</li>
+        <li>saw_i</li>
+        <li>triangle</li>
+        <li>square</li>
+        <li>sig</li>
+    </ul>
+    </p>
     <p>Beware of setting the sampling rate too low as it may hog your CPU.</p>
 </script>

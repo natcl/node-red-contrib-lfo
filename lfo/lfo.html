@@ -6,7 +6,9 @@
             name: {value:""},
             waveform: {value: "sine"},
             frequency: {value: 1, validate:RED.validators.number()},
-            samplingrate: {value: 20, validate:RED.validators.number()}
+            samplingrate: {value: 20, validate:RED.validators.number()},
+            chunked: {value: false},
+            chunksize: {value: 1, validate: function(v) { return !v || !isNaN(v) }}
         },
         inputs:1,
         outputs:1,
@@ -18,6 +20,19 @@
         oneditprepare: function () {
             $( "#node-input-frequency" ).spinner({min:0});
             $( "#node-input-samplingrate" ).spinner({min:1});
+            
+            // Older nodes don't have a chunksize yet, so let's migrate them to have chunksize 1
+            // (only relevant the first time config screen will be opened)
+            $('#node-input-chunksize').val(this.chunksize || 1);
+            
+            // Show the 'chunksize' field only when the 'chunked' checkbox is checked
+            $("#node-input-chunked").change(function() {
+                if ($(this).is(":checked")) {
+                    $(".node-input-chunksize-row").show();
+                } else {
+                    $(".node-input-chunksize-row").hide();
+                }
+            });
         }
     });
 </script>
@@ -44,6 +59,15 @@
         <input type="text" id="node-input-samplingrate" placeholder="ms" style="text-align:end; width:50px !important">
         <span>Milisecond(s)</span>
     </div>
+    <div class="form-row">    
+        <input type="checkbox" id="node-input-chunked" style="display: inline-block; width: auto; vertical-align: top;">
+        <label for="node-input-chunked" style="width:70%;"> Collect samples in chunks of fixed size</label>
+        <div style="margin-left: 20px" class="node-input-chunksize-row hide">
+            <label for="node-input-chunksize" style="width: 120px;"><i class="fa fa-bars"></i> Chunk size</label>
+            <input type="text" id="node-input-chunksize" pattern="[1-9][0-9]*" style="text-align:end; width:50px !important">
+            <span>Sample(s)</span>
+        </div>
+    </div>
 
     <div class="form-row">
         <label for="node-input-name" style="width: 120px;"><i class="icon-tag"></i> Name</label>
@@ -66,4 +90,5 @@
     </ul>
     </p>
     <p>Beware of setting the sampling rate too low as it may hog your CPU.</p>
+    <p>To avoid CPU hogging, chunked output can be activated: when chunk size is set to N, then only every N-th sample an output message will be send (containing an array of N samples).</p>
 </script>

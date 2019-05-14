@@ -10,6 +10,9 @@ module.exports = function(RED) {
         node.waveform = config.waveform;
         node.frequency = config.frequency;
         node.samplingrate = config.samplingrate;
+        node.chunksize = parseInt(config.chunksize || 1);
+        node.chunked = config.chunked || false;
+        node.chunk = [];
 
         node.on('input', function(msg) {
 
@@ -28,31 +31,55 @@ module.exports = function(RED) {
                     clearInterval(node.lfo);
                     node.lfo = null;
                 }
+                
+                // Clear the data chunk array
+                node.chunk.length = 0;
+                
                 return;
             }
 
             if (!node.lfo) {
                 node.time = new clock();
                 node.lfo = setInterval(function() {
+                    var sample;
+                    
                     if (node.waveform === 'sine') {
-                        msg.payload = osc.sine(node.time.sinceBeginNS() / 1e9, node.frequency);
+                        sample = osc.sine(node.time.sinceBeginNS() / 1e9, node.frequency);
                     }
                     if (node.waveform === 'saw') {
-                        msg.payload = osc.saw(node.time.sinceBeginNS() / 1e9, node.frequency);
+                        sample = osc.saw(node.time.sinceBeginNS() / 1e9, node.frequency);
                     }
                     if (node.waveform === 'saw_i') {
-                        msg.payload =  osc.saw_i(node.time.sinceBeginNS() / 1e9, node.frequency);
+                        sample =  osc.saw_i(node.time.sinceBeginNS() / 1e9, node.frequency);
                     }
                     if (node.waveform === 'triangle') {
-                        msg.payload = osc.triangle(node.time.sinceBeginNS() / 1e9, node.frequency);
+                        sample = osc.triangle(node.time.sinceBeginNS() / 1e9, node.frequency);
                     }
                     if (node.waveform === 'square') {
-                        msg.payload = osc.square(node.time.sinceBeginNS() / 1e9, node.frequency);
+                        sample = osc.square(node.time.sinceBeginNS() / 1e9, node.frequency);
                     }
                     if (node.waveform === 'sig') {
-                        msg.payload = osc.sig(node.time.sinceBeginNS() / 1e9, node.frequency);
+                        sample = osc.sig(node.time.sinceBeginNS() / 1e9, node.frequency);
                     }
-                    node.send(msg);
+                    
+                    if (node.chunked) {
+                        node.chunk.push(sample);
+                        
+                        if (node.chunk.length === node.chunksize) {
+                            // When chunked output has reached the specified chunk size, a single output message will
+                            // be send (containing the array of collected samples)
+                            msg.payload = node.chunk;
+                            node.send(msg);
+
+                            // Clear the data chunk array
+                            node.chunk.length = 0
+                        }
+                    }
+                    else {
+                        // When no chunked output, an output message will be triggered for every sample
+                        msg.payload = sample;
+                        node.send(msg);
+                    }
                 }, node.samplingrate);
             }
         });
@@ -62,6 +89,9 @@ module.exports = function(RED) {
                 clearInterval(node.lfo);
                 node.lfo = null;
             }
+            
+            // Clear the data chunk array
+            node.chunk.length = 0
         });
     }
     RED.nodes.registerType("lfo-node", LFONode);

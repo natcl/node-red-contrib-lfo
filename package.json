@@ -1,6 +1,6 @@
 {
   "name": "node-red-contrib-lfo",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Low frequency oscillators for Node-RED",
   "dependencies": {
     "oscillators": "0.6.0",
@@ -10,7 +10,7 @@
     "type": "git",
     "url": "https://github.com/natcl/node-red-contrib-lfo.git"
   },
-  "keywords": ["node-red", "lfo", "oscillator"],
+  "keywords": ["node-red", "lfo", "oscillator", "generator", "wave", "sine", "saw", "triangle", "square", "sig"],
   "node-red": {
     "nodes": {
       "lfo": "lfo/lfo.js"

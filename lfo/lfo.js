@@ -12,7 +12,7 @@ module.exports = function(RED) {
         node.waveform = config.waveform;
         node.frequency = config.frequency;
         node.samplingrate = config.samplingrate;
-        node.timeOffset = parseInt(config.timeOffset);
+        node.phase = parseFloat(config.phase);
         node.chunksize = parseInt(config.chunksize || 1);
         node.chunked = config.chunked || false;
         node.chunk = [];
@@ -29,8 +29,8 @@ module.exports = function(RED) {
                 return;
             }
 
-            if (msg.hasOwnProperty('timeOffset')) {
-                node.timeOffset = msg.timeOffset;
+            if (msg.hasOwnProperty('phase')) {
+                node.phase = msg.phase;
                 return;
             }
 
@@ -48,25 +48,27 @@ module.exports = function(RED) {
 
             if (!node.lfo) {
                 node.lfo = setInterval(function() {
-                    var sample;
+                    let sample;
+                    
+                    const offset = node.phase / (360 * node.frequency);
                     
                     if (node.waveform === 'sine') {
-                        sample = osc.sine((time.sinceBeginNS() + node.timeOffset) / 1e9, node.frequency);
+                        sample = osc.sine(time.sinceBeginNS() / 1e9 + offset, node.frequency);
                     }
                     if (node.waveform === 'saw') {
-                        sample = osc.saw((time.sinceBeginNS() + node.timeOffset) / 1e9, node.frequency);
+                        sample = osc.saw(time.sinceBeginNS() / 1e9 + offset, node.frequency);
                     }
                     if (node.waveform === 'saw_i') {
-                        sample =  osc.saw_i((time.sinceBeginNS() + node.timeOffset) / 1e9, node.frequency);
+                        sample =  osc.saw_i(time.sinceBeginNS() / 1e9 + offset, node.frequency);
                     }
                     if (node.waveform === 'triangle') {
-                        sample = osc.triangle((time.sinceBeginNS() + node.timeOffset) / 1e9, node.frequency);
+                        sample = osc.triangle(time.sinceBeginNS() / 1e9 + offset, node.frequency);
                     }
                     if (node.waveform === 'square') {
-                        sample = osc.square((time.sinceBeginNS() + node.timeOffset) / 1e9, node.frequency);
+                        sample = osc.square(time.sinceBeginNS() / 1e9 + offset, node.frequency);
                     }
                     if (node.waveform === 'sig') {
-                        sample = osc.sig((time.sinceBeginNS() + node.timeOffset) / 1e9, node.frequency);
+                        sample = osc.sig(time.sinceBeginNS() / 1e9 + offset, node.frequency);
                     }
                     
                     if (node.chunked) {

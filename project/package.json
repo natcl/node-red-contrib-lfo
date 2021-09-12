@@ -3,15 +3,18 @@
   "version": "0.0.1",
   "description": "Node-RED lfo example project",
   "dependencies": {
-    "node-red": "~0.16.0",
-    "node-red-dashboard": "~2.3.5"
+    "node-red": "2.0.6",
+    "node-red-dashboard": "2.30.0"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/natcl/node-red-contrib-lfo.git"
   },
-  "keywords": ["node-red", "lfo"],
+  "keywords": [
+    "node-red",
+    "lfo"
+  ],
   "scripts": {
-    "start": "node node_modules/node-red/red.js -v -u ."
+    "start": "npm link node-red-contrib-lfo ; node node_modules/node-red/red.js -v -u ."
   }
 }

@@ -1,7 +1,9 @@
+const clock = require('since-when');
+const time = new clock();
+
 module.exports = function(RED) {
     function LFONode(config) {
         const osc = require('oscillators');
-        const clock = require('since-when');
 
         RED.nodes.createNode(this, config);
         var node = this;
@@ -10,6 +12,7 @@ module.exports = function(RED) {
         node.waveform = config.waveform;
         node.frequency = config.frequency;
         node.samplingrate = config.samplingrate;
+        node.timeOffset = parseInt(config.timeOffset);
         node.chunksize = parseInt(config.chunksize || 1);
         node.chunked = config.chunked || false;
         node.chunk = [];
@@ -26,6 +29,11 @@ module.exports = function(RED) {
                 return;
             }
 
+            if (msg.hasOwnProperty('timeOffset')) {
+                node.timeOffset = msg.timeOffset;
+                return;
+            }
+
             if (msg.payload === 'stop') {
                 if (node.lfo) {
                     clearInterval(node.lfo);
@@ -39,27 +47,26 @@ module.exports = function(RED) {
             }
 
             if (!node.lfo) {
-                node.time = new clock();
                 node.lfo = setInterval(function() {
                     var sample;
                     
                     if (node.waveform === 'sine') {
-                        sample = osc.sine(node.time.sinceBeginNS() / 1e9, node.frequency);
+                        sample = osc.sine((time.sinceBeginNS() + node.timeOffset) / 1e9, node.frequency);
                     }
                     if (node.waveform === 'saw') {
-                        sample = osc.saw(node.time.sinceBeginNS() / 1e9, node.frequency);
+                        sample = osc.saw((time.sinceBeginNS() + node.timeOffset) / 1e9, node.frequency);
                     }
                     if (node.waveform === 'saw_i') {
-                        sample =  osc.saw_i(node.time.sinceBeginNS() / 1e9, node.frequency);
+                        sample =  osc.saw_i((time.sinceBeginNS() + node.timeOffset) / 1e9, node.frequency);
                     }
                     if (node.waveform === 'triangle') {
-                        sample = osc.triangle(node.time.sinceBeginNS() / 1e9, node.frequency);
+                        sample = osc.triangle((time.sinceBeginNS() + node.timeOffset) / 1e9, node.frequency);
                     }
                     if (node.waveform === 'square') {
-                        sample = osc.square(node.time.sinceBeginNS() / 1e9, node.frequency);
+                        sample = osc.square((time.sinceBeginNS() + node.timeOffset) / 1e9, node.frequency);
                     }
                     if (node.waveform === 'sig') {
-                        sample = osc.sig(node.time.sinceBeginNS() / 1e9, node.frequency);
+                        sample = osc.sig((time.sinceBeginNS() + node.timeOffset) / 1e9, node.frequency);
                     }
                     
                     if (node.chunked) {

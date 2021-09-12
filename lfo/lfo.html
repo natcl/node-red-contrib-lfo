@@ -7,6 +7,7 @@
             waveform: {value: "sine"},
             frequency: {value: 1, validate:RED.validators.number()},
             samplingrate: {value: 20, validate:RED.validators.number()},
+            timeOffset: {value: 0, validate:RED.validators.number()}, 
             chunked: {value: false},
             chunksize: {value: 1, validate: function(v) { return !v || !isNaN(v) }}
         },
@@ -20,6 +21,7 @@
         oneditprepare: function () {
             $( "#node-input-frequency" ).spinner({min:0});
             $( "#node-input-samplingrate" ).spinner({min:1});
+            $( "#node-input-timeOffset" ).spinner();
             
             // Older nodes don't have a chunksize yet, so let's migrate them to have chunksize 1
             // (only relevant the first time config screen will be opened)
@@ -58,6 +60,11 @@
         <label for="node-input-samplingrate" style="width: 120px;"><i class="fa fa-clock-o"></i> Sampling rate</label>
         <input type="text" id="node-input-samplingrate" placeholder="ms" style="text-align:end; width:50px !important">
         <span>Milisecond(s)</span>
+    </div>
+    <div class="form-row">
+        <label for="node-input-timeOffset" style="width: 120px;"><i class="fa fa-clock-o"></i> Time offset</label>
+        <input type="text" id="node-input-timeOffset" placeholder="ns" style="text-align:end; width:50px !important">
+        <span>Nanosecond(s)</span>
     </div>
     <div class="form-row">    
         <input type="checkbox" id="node-input-chunked" style="display: inline-block; width: auto; vertical-align: top;">

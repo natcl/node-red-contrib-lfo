@@ -4,7 +4,7 @@ Low frequency oscillators for Node-RED.
 
 Will output numbers between -1 and 1 at the given frequency according to the selected waveform.
 
-Sending a number as `msg.payload` will change the frequency of the LFO. Sending the string `'stop'` as `msg.payload` will stop the output. Sending anything else will start the waveform. The waveform can also be changed dynamically by changing `msg.waveform` valid choices are:
+Sending a number as `msg.payload` will change the frequency of the LFO. Sending the string `'start'` as msg.payload is required to start the generator. Sending the string `'stop'` as `msg.payload` will stop the output. Sending anything else will start the waveform. The waveform can also be changed dynamically by changing `msg.waveform` valid choices are:
 
 - sine
 - saw
